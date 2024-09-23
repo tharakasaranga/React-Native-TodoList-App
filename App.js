@@ -1,4 +1,3 @@
-// App.js
 import { Image, ScrollView, StyleSheet, Text, View, TextInput, TouchableOpacity, Alert } from 'react-native';
 import React, { useState } from 'react';
 import TodoList from './components/TodoList';
@@ -71,7 +70,7 @@ const App = () => {
               />
             </TouchableOpacity>
 
-            {/* Button to remove all tasks */}
+      
             <TouchableOpacity onPress={handleRemoveAll}>
               <Image
                 source={require('./assets/removeAll.png')}
@@ -110,7 +109,6 @@ const App = () => {
           )}
 
           <View style={styles.items}>
-            {/* Pass the ref to TodoList */}
             <TodoList searchQuery={searchQuery} ref={todoListRef} />
           </View>
         </View>
