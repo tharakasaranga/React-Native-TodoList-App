@@ -1,4 +1,3 @@
-// TodoList.js
 import React, { useState, useEffect, forwardRef, useImperativeHandle } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Modal, Alert, ScrollView } from 'react-native';
 import TodoItem from './TodoItem';
@@ -78,7 +77,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   scrollContent: {
-    marginTop: 160, // Increased space for fixed header and additional inputs
+    marginTop: 160, 
     paddingHorizontal: 20,
   },
 });
@@ -86,7 +85,7 @@ const styles = StyleSheet.create({
 const TodoList = forwardRef(({ searchQuery }, ref) => {
   const [tasks, setTasks] = useState([]);
   const [text, setText] = useState('');
-  const [description, setDescription] = useState(''); // Description field
+  const [description, setDescription] = useState(''); 
   const [editingTaskId, setEditingTaskId] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedTask, setSelectedTask] = useState(null);
@@ -95,7 +94,7 @@ const TodoList = forwardRef(({ searchQuery }, ref) => {
     loadTasks();
   }, []);
 
-  // Expose removeAllTasks method to parent component
+  
   useImperativeHandle(ref, () => ({
     removeAllTasks,
   }));
@@ -116,8 +115,8 @@ const TodoList = forwardRef(({ searchQuery }, ref) => {
       task.id === id ? { ...task, pinned: !task.pinned } : task
     );
     saveTasks(updatedTasks);
-    // Display success message based on the updated task
-    const pinnedTask = updatedTasks.find(task => task.id === id); // Find the updated task
+    
+    const pinnedTask = updatedTasks.find(task => task.id === id); 
     Alert.alert('Success', pinnedTask.pinned ? 'Task pinned successfully!' : 'Task unpinned!');
   };
 
@@ -142,7 +141,7 @@ const TodoList = forwardRef(({ searchQuery }, ref) => {
       const newTask = {
         id: Date.now(),
         text,
-        description, // Add description
+        description, 
         completed: false,
         pinned: false,
         createdAt: new Date(),
@@ -151,7 +150,7 @@ const TodoList = forwardRef(({ searchQuery }, ref) => {
       Alert.alert('Success', 'Task added successfully!');
     }
     setText('');
-    setDescription(''); // Clear description after saving
+    setDescription(''); 
   };
 
   const deleteTask = (id) => {
@@ -184,7 +183,7 @@ const TodoList = forwardRef(({ searchQuery }, ref) => {
   const startEditing = (id) => {
     const task = tasks.find((task) => task.id === id);
     setText(task.text);
-    setDescription(task.description); // Set description for editing
+    setDescription(task.description); 
     setEditingTaskId(id);
   };
 
@@ -197,7 +196,7 @@ const TodoList = forwardRef(({ searchQuery }, ref) => {
     .filter((task) => task.text.toLowerCase().includes(searchQuery.toLowerCase()))
     .sort((a, b) => b.pinned - a.pinned || new Date(b.createdAt) - new Date(a.createdAt));
 
-  // Function to remove all tasks
+ 
   const removeAllTasks = () => {
     Alert.alert(
       'Confirm Delete All',
@@ -226,7 +225,7 @@ const TodoList = forwardRef(({ searchQuery }, ref) => {
   return (
     <View style={styles.container}>
       <View style={styles.fixedHeader}>
-        {/* Input field and Add button */}
+       
         <View style={styles.inputContainer}>
           <TextInput
             style={styles.textInput}
@@ -242,7 +241,7 @@ const TodoList = forwardRef(({ searchQuery }, ref) => {
           </TouchableOpacity>
         </View>
 
-        {/* Description input (optional) */}
+       
         <TextInput
           style={styles.textInput}
           value={description}
@@ -253,7 +252,7 @@ const TodoList = forwardRef(({ searchQuery }, ref) => {
       </View>
 
       <ScrollView contentContainerStyle={styles.scrollContent}>
-        {/* Task list */}
+        
         {sortedTasks.map((task) => (
           <TouchableOpacity key={task.id} onPress={() => handleItemPress(task)}>
             <TodoItem
@@ -267,7 +266,7 @@ const TodoList = forwardRef(({ searchQuery }, ref) => {
         ))}
       </ScrollView>
 
-      {/* Modal to show task details */}
+      
       {selectedTask && (
         <Modal transparent={true} visible={modalVisible} animationType="slide">
           <View style={styles.modalContainer}>
